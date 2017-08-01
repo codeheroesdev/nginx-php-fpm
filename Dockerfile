@@ -1,4 +1,4 @@
-FROM php:7.1.3-fpm-alpine
+FROM php:5.6-fpm-alpine
 
 MAINTAINER ngineered <support@ngineered.co.uk>
 
@@ -145,6 +145,7 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     gcc \
     musl-dev \
     linux-headers \
+    libmcrypt-dev \
     libpng-dev \
     icu-dev \
     libpq \
@@ -159,7 +160,7 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
       --with-png-dir=/usr/include/ \
       --with-jpeg-dir=/usr/include/ && \
     #curl iconv session
-    docker-php-ext-install pdo_mysql pdo_sqlite mysqli gd exif intl xsl json soap dom zip opcache && \
+    docker-php-ext-install pdo_mysql pdo_sqlite mysqli mcrypt gd exif intl xsl json soap dom zip opcache && \
     docker-php-source delete && \
     mkdir -p /etc/nginx && \
     mkdir -p /var/www/app && \
