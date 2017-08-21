@@ -154,14 +154,16 @@ RUN echo @testing http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repo
     freetype-dev \
     sqlite-dev \
     postgresql-dev \
-    libjpeg-turbo-dev && \
+    libjpeg-turbo-dev \
+    imap-dev \
+    openssl-dev && \
     docker-php-ext-configure gd \
       --with-gd \
       --with-freetype-dir=/usr/include/ \
       --with-png-dir=/usr/include/ \
       --with-jpeg-dir=/usr/include/ && \
-    #curl iconv session
-    docker-php-ext-install pgsql pdo pdo_pgsql pdo_mysql pdo_sqlite mysqli mcrypt gd exif intl xsl json soap dom zip opcache && \
+    docker-php-ext-configure imap --with-imap --with-imap-ssl && \
+    docker-php-ext-install pgsql pdo pdo_pgsql pdo_mysql pdo_sqlite mysqli mcrypt gd exif intl xsl json soap dom zip opcache imap && \
     docker-php-source delete && \
     mkdir -p /etc/nginx && \
     mkdir -p /var/www/app && \
